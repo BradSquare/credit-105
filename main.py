@@ -8,6 +8,7 @@ credit = pd.read_csv("credit.csv")
 # Set a consistent style
 sns.set_style("whitegrid")
 
+
 # Histogram for Age (Proportion)
 plt.figure(figsize=(8, 5))
 sns.histplot(credit["Age"], bins=20, kde=True, color="skyblue", stat="probability")
@@ -16,6 +17,11 @@ plt.xlabel("Age")
 plt.ylabel("Proportion of Applicants")
 plt.show()
 
+# Display statistics
+print(f"Age - Mean: {credit['Age'].mean():.2f}")
+print(f"Age - Median: {credit['Age'].median():.2f}")
+print(f"Age - Mode: {credit['Age'].mode()[0]:.2f}")
+
 # Histogram for Credit Rating (Proportion)
 plt.figure(figsize=(8, 5))
 sns.histplot(credit["Credit_Rating"], bins=20, kde=True, color="orange", stat="probability")
@@ -23,6 +29,11 @@ plt.title("Distribution of Credit Rating")
 plt.xlabel("Credit Rating")
 plt.ylabel("Proportion of Applicants")
 plt.show()
+
+# Display statistics
+print(f"Credit Rating - Mean: {credit['Credit_Rating'].mean():.2f}")
+print(f"Credit Rating - Median: {credit['Credit_Rating'].median():.2f}")
+print(f"Credit Rating - Mode: {credit['Credit_Rating'].mode()[0]:.2f}")
 
 # Countplot for Existing Credits (Proportion)
 plt.figure(figsize=(8, 5))
@@ -39,9 +50,12 @@ plt.title("Count of Existing Credits")
 plt.xlabel("Existing Credits")
 plt.show()
 
+# Display statistics (Only mode makes sense for categorical data)
+print(f"Existing Credits - Mode: {credit['Existing_Credits'].mode()[0]}")
+
 # Countplot for Housing Type (Proportion)
 plt.figure(figsize=(8, 5))
-ax = sns.countplot(data=credit, x="Housing_Type", palette="viridis")
+ax = sns.countplot(data=credit, x="Housing_Type", palette="coolwarm")
 total = len(credit)
 for p in ax.patches:
     height = p.get_height()
@@ -53,6 +67,9 @@ ax.set_yticklabels([f"{i / 10:.1f}" for i in range(11)])
 plt.title("Count of Housing Types")
 plt.xlabel("Housing Type")
 plt.show()
+
+# Display statistics (Mode only for categorical)
+print(f"Housing Type - Mode: {credit['Housing_Type'].mode()[0]}")
 
 # Countplot for Number of Existing Credits
 credit_counts = credit["Num_Credits"].value_counts(normalize=True)
