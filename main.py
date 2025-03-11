@@ -49,3 +49,8 @@ ax.set_yticklabels([f"{i / 10:.1f}" for i in range(11)])
 plt.title("Count of Housing Types")
 plt.xlabel("Housing Type")
 plt.show()
+
+
+
+
+
