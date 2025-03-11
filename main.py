@@ -34,42 +34,47 @@ print(f"Credit Rating - Mean: {credit['Credit_Rating'].mean():.2f}")
 print(f"Credit Rating - Median: {credit['Credit_Rating'].median():.2f}")
 print(f"Credit Rating - Mode: {credit['Credit_Rating'].mode()[0]:.2f}")
 
-# Countplot for Existing Credits (Proportion)
+
+# plot for Existing Credits (normalized)
+df["Existing_Credits"] = df["Existing_Credits"].astype(int)
+data = df.groupby("Existing_Credits").size()
+
+# Normalize the values by dividing by the total count
+ys = data / data.sum()
+xs = data.index
 plt.figure(figsize=(8, 5))
-ax = sns.countplot(data=credit, x="Existing_Credits", palette="viridis")
-total = len(credit)  # Total number of applicants
-for p in ax.patches:
-    height = p.get_height()
-    ax.text(p.get_x() + p.get_width() / 2, height, f'{height / total:.2f}', 
-            ha="center", va="bottom", fontsize=10)  # Add proportion labels
-ax.set_ylabel("Proportion of Applicants")
-ax.set_yticks([i / 10 * total for i in range(11)])  # Adjust tick marks
-ax.set_yticklabels([f"{i / 10:.1f}" for i in range(11)])  # Convert to proportions
-plt.title("Count of Existing Credits")
-plt.xlabel("Existing Credits")
+
+# Set all bars to a specific color from the 'viridis' colormap
+plt.bar(xs, ys, color=plt.cm.viridis(0.5))  # 0.5 for a middle color from the colormap
+plt.title("Proportion of Applicants by Existing Credits", fontsize=15)
+plt.xlabel("Existing Credits", fontsize=12)
+plt.ylabel("Proportion of Applicants", fontsize=12)
+plt.xticks(range(1, 4))
 plt.show()
 
 # Display statistics (Only mode makes sense for categorical data)
 print(f"Existing Credits - Mode: {credit['Existing_Credits'].mode()[0]}")
 
 # Countplot for Housing Type (Proportion)
+df["Housing_Type"] = df["Housing_Type"].astype(int)
+data = df.groupby("Housing_Type").size()
+
+# Normalize the values by dividing by the total count
+ys = data / data.sum()
+xs = data.index
 plt.figure(figsize=(8, 5))
-ax = sns.countplot(data=credit, x="Housing_Type", palette="coolwarm")
-total = len(credit)
-for p in ax.patches:
-    height = p.get_height()
-    ax.text(p.get_x() + p.get_width() / 2, height, f'{height / total:.2f}', 
-            ha="center", va="bottom", fontsize=10)  # Add proportion labels
-ax.set_ylabel("Proportion of Applicants")
-ax.set_yticks([i / 10 * total for i in range(11)])
-ax.set_yticklabels([f"{i / 10:.1f}" for i in range(11)])
-plt.title("Count of Housing Types")
-plt.xlabel("Housing Type")
+
+# Set all bars to a specific color from the 'viridis' colormap
+plt.bar(xs, ys, color=plt.cm.viridis(0.5))  # 0.5 for a middle color from the colormap
+
+plt.title("Proportion of Applicants by Housing Type", fontsize=15)
+plt.xlabel("Housing Type", fontsize=12)
+plt.ylabel("Proportion of Applicants", fontsize=12)
+plt.xticks(range(1, 4))
 plt.show()
 
 # Display statistics (Mode only for categorical)
 print(f"Housing Type - Mode: {credit['Housing_Type'].mode()[0]}")
-
 #####################################################################Priya##################################################################################################################
 # Countplot for Number of Existing Credits
 credit_counts = credit["Num_Credits"].value_counts(normalize=True)
