@@ -1,5 +1,9 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
+
+# Load dataset
+credit = pd.read_csv("credit.csv")
 
 # Set a consistent style
 sns.set_style("whitegrid")
