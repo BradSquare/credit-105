@@ -264,7 +264,7 @@ xs = data.index
 ys = data
 
 plt.figure(figsize=(8, 5))
-plt.plot(xs, ys, marker='o', color='skyblue', linewidth=2, markerfacecolor='blue')
+plt.plot(xs, ys, marker='o', color=plt.cm.viridis(0.5), linewidth=2)
 plt.title("Approval Rate by Installment Rate", fontsize=15)
 plt.xlabel("Installment Rate", fontsize=12)
 plt.ylabel("Approval Rate", fontsize=12)
