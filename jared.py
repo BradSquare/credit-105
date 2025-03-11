@@ -99,3 +99,19 @@ plt.title("Number of Applicants by Assets", fontsize=15)
 plt.ylabel("Number of Applicants", fontsize=12)
 plt.xlabel("Assets", fontsize=12)
 plt.show()
+
+#plot for assets
+print(f"Mode: {df['Assets'].mode().iloc[0]}")
+
+
+df["Assets"] = df["Assets"].astype(str)
+data = df["Assets"].value_counts(normalize=True)
+data = data.sort_index(key=lambda x: x.astype(int))
+xs = data.index
+ys = data
+plt.figure(figsize=(8,5))
+plt.bar(xs, ys, color='skyblue')
+plt.title("Number of Applicants by Assets", fontsize=15)
+plt.ylabel("Number of Applicants", fontsize=12)
+plt.xlabel("Assets", fontsize=12)
+plt.show()
