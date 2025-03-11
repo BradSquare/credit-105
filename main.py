@@ -7,8 +7,7 @@ credit = pd.read_csv("credit.csv")
 
 # Set a consistent style
 sns.set_style("whitegrid")
-
-
+#####################################################################Denzyl##################################################################################################################
 # Histogram for Age (Proportion)
 plt.figure(figsize=(8, 5))
 sns.histplot(credit["Age"], bins=20, kde=True, color="skyblue", stat="probability")
@@ -71,6 +70,7 @@ plt.show()
 # Display statistics (Mode only for categorical)
 print(f"Housing Type - Mode: {credit['Housing_Type'].mode()[0]}")
 
+#####################################################################Priya##################################################################################################################
 # Countplot for Number of Existing Credits
 credit_counts = credit["Num_Credits"].value_counts(normalize=True)
 credit_counts = credit_counts.sort_index()
