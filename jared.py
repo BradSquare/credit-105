@@ -208,7 +208,17 @@ xs = data.index
 ys = data
 
 plt.figure(figsize=(8, 5))
-plt.bar(xs, ys, color='skyblue')
+bars = plt.bar(xs, ys, color='skyblue')
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width()/2.,  
+        height + 0.01,                     
+        f'{height:.1%}',                   
+        ha='center',                       
+        va='bottom',                      
+        fontsize=9                      
+    )
 plt.title("Approval Rate by Personal_Status", fontsize=15)
 plt.xlabel("Personal_Status", fontsize=12)
 plt.ylabel("Approval Rate", fontsize=12)
@@ -226,7 +236,17 @@ xs = data.index
 ys = data
 
 plt.figure(figsize=(8, 5))
-plt.bar(xs, ys, color='skyblue')
+bars = plt.bar(xs, ys, color='skyblue')
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width()/2.,  
+        height + 0.01,                     
+        f'{height:.1%}',                   
+        ha='center',                       
+        va='bottom',                      
+        fontsize=9                      
+    )
 plt.title("Approval Rate by Guarantors", fontsize=15)
 plt.xlabel("Guarantors", fontsize=12)
 plt.ylabel("Approval Rate", fontsize=12)
@@ -244,7 +264,17 @@ xs = data.index
 ys = data
 
 plt.figure(figsize=(8, 5))
-plt.bar(xs, ys, color='skyblue')
+bars = plt.bar(xs, ys, color='skyblue')
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width()/2.,  
+        height + 0.01,                     
+        f'{height:.1%}',                   
+        ha='center',                       
+        va='bottom',                      
+        fontsize=9                      
+    )
 plt.title("Approval Rate by Residence_Length", fontsize=15)
 plt.xlabel("Residence_Length", fontsize=12)
 plt.ylabel("Approval Rate", fontsize=12)
@@ -262,7 +292,17 @@ xs = data.index
 ys = data
 
 plt.figure(figsize=(8, 5))
-plt.bar(xs, ys, color='skyblue')
+bars = plt.bar(xs, ys, color='skyblue')
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width()/2.,  
+        height + 0.01,                     
+        f'{height:.1%}',                   
+        ha='center',                       
+        va='bottom',                      
+        fontsize=9                      
+    )
 plt.title("Approval Rate by Assets", fontsize=15)
 plt.xlabel("Assets", fontsize=12)
 plt.ylabel("Approval Rate", fontsize=12)
