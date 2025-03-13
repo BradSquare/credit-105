@@ -37,8 +37,8 @@ print(f"Credit Rating - Mode: {credit['Credit_Rating'].mode()[0]:.2f}")
 
 
 # plot for Existing Credits (normalized)
-df["Existing_Credits"] = df["Existing_Credits"].astype(int)
-data = df.groupby("Existing_Credits").size()
+credit["Existing_Credits"] = credit["Existing_Credits"].astype(int)
+data = credit.groupby("Existing_Credits").size()
 
 # Normalize the values by dividing by the total count
 ys = data / data.sum()
@@ -57,8 +57,8 @@ plt.show()
 print(f"Existing Credits - Mode: {credit['Existing_Credits'].mode()[0]}")
 
 # Countplot for Housing Type (Proportion)
-df["Housing_Type"] = df["Housing_Type"].astype(int)
-data = df.groupby("Housing_Type").size()
+credit["Housing_Type"] = credit["Housing_Type"].astype(int)
+data = credit.groupby("Housing_Type").size()
 
 # Normalize the values by dividing by the total count
 ys = data / data.sum()
@@ -100,10 +100,10 @@ plt.grid(True)
 plt.show()
 
 # Approval Rate for Existing Credits
-df["Existing_Credits"] = df["Existing_Credits"].astype(int)
+credit["Existing_Credits"] = credit["Existing_Credits"].astype(int)
 
 # Compute approval rate instead of count
-data = df.groupby("Existing_Credits")["Approved"].mean()
+data = credit.groupby("Existing_Credits")["Approved"].mean()
 
 # Get x (categories) and y (approval rate)
 ys = data  # Already normalized as mean (between 0 and 1)
@@ -122,13 +122,13 @@ plt.xticks(range(1, 4))  # Adjust based on unique categories
 plt.show()
 
 # Display statistics
-print(f"Existing Credits - Mode: {df['Existing_Credits'].mode()[0]}")
+print(f"Existing Credits - Mode: {credit['Existing_Credits'].mode()[0]}")
 
 # Approval Rate for Housing Type
-df["Housing_Type"] = df["Housing_Type"].astype(int)
+credit["Housing_Type"] = credit["Housing_Type"].astype(int)
 
 # Compute approval rate instead of count
-data = df.groupby("Housing_Type")["Approved"].mean()
+data = credit.groupby("Housing_Type")["Approved"].mean()
 
 # Get x (categories) and y (approval rate)
 ys = data  # Already normalized as mean (between 0 and 1)
@@ -147,7 +147,7 @@ plt.xticks(range(1, 4))  # Adjust based on unique categories
 plt.show()
 
 # Display statistics
-print(f"Housing Type - Mode: {df['Housing_Type'].mode()[0]}")
+print(f"Housing Type - Mode: {credit['Housing_Type'].mode()[0]}")
 
 #####################################################################Priya##################################################################################################################
 # Countplot for Number of Existing Credits
