@@ -206,6 +206,13 @@ plt.ylabel("Number of Applicants", fontsize=12)
 plt.xlabel("Assets", fontsize=12)
 plt.show()
 
+
+
+
+
+
+
+#PLOTTING BIVARIATE
 #plot for Personal_Status and approval rate
 credit["Personal_Status"] = credit["Personal_Status"].astype(str)
 
