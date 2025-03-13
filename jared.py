@@ -9,32 +9,32 @@ df = pd.read_csv("credit.csv")
 
 #percentage of missing values for each column
 missing = df.apply(lambda x: x.isna().sum()/1000)
-print(missing)
+#print(missing)
 
 #check if ID are all unique values
 id = df["ID"].unique()
-print(len(id))
+#print(len(id))
 
 #find rows that are missing values for checking account
 checking_account_missing = pd.isnull(df["Checking_Account"])
 missing_ca = df[checking_account_missing]
-print(missing_ca)
+#print(missing_ca)
 
 #find rows that are missing values for dependents
 dependents_missing = pd.isnull(df["Dependents"])
 missing_d = df[dependents_missing]
-print(missing_d)
+#print(missing_d)
 
 #fill in empty rows for checking account
 df["Checking_Account"] = df["Checking_Account"].fillna(4)
 
 #fill in empty rows for dependents
 df["Dependents"] = df["Dependents"].fillna(0)
-df.count()
+#df.count()
 
 #percentage of missing values for each column; check if there are still missing values
 missing = df.apply(lambda x: x.isna().sum()/1000)
-print(missing)
+#print(missing)
 
 #check for outliers
 # print(df[(np.abs(stats.zscore(df)) < 3).all(axis=1)])
