@@ -3,46 +3,49 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
-df = pd.read_csv("credit.csv")
-# credit.info()
+#CLEANING DATA
+#Read File  
+credit = pd.read_csv("credit.csv")
 
-#percentage of missing values for each column
-missing = df.apply(lambda x: x.isna().sum()/1000)
-print(missing)
+#Percentage of missing values for each column
+missing = credit.apply(lambda x: x.isna().sum()/1000)
+#print(missing)
 
-#check if ID are all unique values
-id = df["ID"].unique()
-print(len(id))
+#Check if ID are all unique values
+id = credit["ID"].unique()
+#print(len(id))
 
-#find rows that are missing values for checking account
-checking_account_missing = pd.isnull(df["Checking_Account"])
-missing_ca = df[checking_account_missing]
-print(missing_ca)
+#Find rows that are missing values for checking account
+checking_account_missing = pd.isnull(credit["Checking_Account"])
+missing_ca = credit[checking_account_missing]
+#print(missing_ca)
 
 #find rows that are missing values for dependents
-dependents_missing = pd.isnull(df["Dependents"])
-missing_d = df[dependents_missing]
-print(missing_d)
+dependents_missing = pd.isnull(credit["Dependents"])
+missing_d = credit[dependents_missing]
+#print(missing_d)
 
 #fill in empty rows for checking account
-df["Checking_Account"].fillna(4, inplace=True)
+credit["Checking_Account"].fillna(4, inplace=True)
 
 #fill in empty rows for dependents
-df["Dependents"].fillna(0, inplace=True)
+credit["Dependents"].fillna(0, inplace=True)
 
 #percentage of missing values for each column; check if there are still missing values
-missing = df.apply(lambda x: x.isna().sum()/1000)
-print(missing)
+missing = credit.apply(lambda x: x.isna().sum()/1000)
+#print(missing)
 
 #check for outliers
-print(df[(np.abs(stats.zscore(df)) < 3).all(axis=1)])
+print(credit[(np.abs(stats.zscore(credit)) < 3).all(axis=1)])
 
-#checking for invalid values 
 
+
+
+#CHECKING INVALID VALUES  
 #Evaluating Invalid Data (e.g. out of the range) from Personal_Status, Guarantors, Residence_Length and Assets
 
 # Find invalid values (less than 1 or greater than 4) for Personal_Status
-invalid_values = df[(df["Personal_Status"] <= 0) | (df["Personal_Status"] > 4)]
+invalid_values = credit[(credit["Personal_Status"] <= 0) | (credit["Personal_Status"] > 4)]
 
 # Print results
 if not invalid_values.empty:
@@ -52,7 +55,7 @@ else:
     print("All Personal_Status values are valid.")
 
 # Find invalid values (less than 1 or greater than 3) for Guarantors
-invalid_values = df[(df["Guarantors"] < 1) | (df["Guarantors"] > 3)]
+invalid_values = credit[(credit["Guarantors"] < 1) | (credit["Guarantors"] > 3)]
 
 # Print results
 if not invalid_values.empty:
@@ -63,7 +66,7 @@ else:
 
 
 # Find invalid values (less than 1 or greater than 4) for Residence_Length
-invalid_values = df[(df["Residence_Length"] < 1) | (df["Residence_Length"] > 4)]
+invalid_values = credit[(credit["Residence_Length"] < 1) | (credit["Residence_Length"] > 4)]
 
 # Print results
 if not invalid_values.empty:
@@ -71,14 +74,14 @@ if not invalid_values.empty:
     print(invalid_values)
     
     # Calculate the mode of Residence_Length (excluding invalid values)
-    valid_residence = df[(df["Residence_Length"] >= 1) & (df["Residence_Length"] <= 4)]["Residence_Length"]
+    valid_residence = credit[(credit["Residence_Length"] >= 1) & (credit["Residence_Length"] <= 4)]["Residence_Length"]
     residence_mode = valid_residence.mode()[0]  # mode() returns a Series, so we get the first value
 
     # Replace invalid values with the mode
-    df.loc[(df["Residence_Length"] < 1) | (df["Residence_Length"] > 4), "Residence_Length"] = residence_mode
+    credit.loc[(credit["Residence_Length"] < 1) | (credit["Residence_Length"] > 4), "Residence_Length"] = residence_mode
 
 # Re-evaluate Residence_Length for any Invalid values
-invalid_values = df[(df['Residence_Length'] < 1) | (df['Residence_Length'] > 4)]
+invalid_values = credit[(credit['Residence_Length'] < 1) | (credit['Residence_Length'] > 4)]
 
 # Print results
 if not invalid_values.empty:
@@ -88,8 +91,8 @@ else:
     print("All Residence_Length values are valid.")
 
 # Find invalid values (less than 1 or greater than 4) for Assets
-df['Assets'] = pd.to_numeric(df['Assets'])
-invalid_values = df[(df["Assets"] < 1) | (df["Assets"] > 4)]
+credit['Assets'] = pd.to_numeric(credit['Assets'])
+invalid_values = credit[(credit["Assets"] < 1) | (credit["Assets"] > 4)]
 
 # Print results
 if not invalid_values.empty:
@@ -99,11 +102,15 @@ else:
     print("All Assets values are valid.")
 
 
-#plot for Personal_Status
-print(f"Mode: {df['Personal_Status'].mode().iloc[0]}")
 
-df["Personal_Status"] = df["Personal_Status"].astype(str)
-data = df["Personal_Status"].value_counts(normalize=True)
+
+
+#PLOTTING UNIVARIATE
+#plot for Personal_Status
+print(f"Mode: {credit['Personal_Status'].mode().iloc[0]}")
+
+credit["Personal_Status"] = credit["Personal_Status"].astype(str)
+data = credit["Personal_Status"].value_counts(normalize=True)
 data = data.sort_index(key=lambda x: x.astype(int))
 xs = data.index
 ys = data
@@ -125,10 +132,10 @@ plt.xlabel("Personal Status", fontsize=12)
 plt.show()
 
 #plot for Guarantors
-print(f"Mode: {df['Guarantors'].mode().iloc[0]}")
+print(f"Mode: {credit['Guarantors'].mode().iloc[0]}")
 
-df["Guarantors"] = df["Guarantors"].astype(str)
-data = df["Guarantors"].value_counts(normalize=True)
+credit["Guarantors"] = credit["Guarantors"].astype(str)
+data = credit["Guarantors"].value_counts(normalize=True)
 data = data.sort_index(key=lambda x: x.astype(int))
 xs = data.index
 ys = data
@@ -150,10 +157,10 @@ plt.xlabel("Guarantors", fontsize=12)
 plt.show()
 
 #plot for Residence_Length
-print(f"Mode: {df['Residence_Length'].mode().iloc[0]}")
+print(f"Mode: {credit['Residence_Length'].mode().iloc[0]}")
 
-df["Residence_Length"] = df["Residence_Length"].astype(str)
-data = df["Residence_Length"].value_counts(normalize=True)
+credit["Residence_Length"] = credit["Residence_Length"].astype(str)
+data = credit["Residence_Length"].value_counts(normalize=True)
 data = data.sort_index(key=lambda x: x.astype(int))
 xs = data.index
 ys = data
@@ -175,10 +182,10 @@ plt.xlabel("Residence_Length", fontsize=12)
 plt.show()
 
 #plot for Assets
-print(f"Mode: {df['Assets'].mode().iloc[0]}")
+print(f"Mode: {credit['Assets'].mode().iloc[0]}")
 
-df["Assets"] = df["Assets"].astype(str)
-data = df["Assets"].value_counts(normalize=True)
+credit["Assets"] = credit["Assets"].astype(str)
+data = credit["Assets"].value_counts(normalize=True)
 data = data.sort_index(key=lambda x: x.astype(int))
 xs = data.index
 ys = data
@@ -200,9 +207,9 @@ plt.xlabel("Assets", fontsize=12)
 plt.show()
 
 #plot for Personal_Status and approval rate
-df["Personal_Status"] = df["Personal_Status"].astype(str)
+credit["Personal_Status"] = credit["Personal_Status"].astype(str)
 
-data = df.groupby("Personal_Status")["Approval"].mean()
+data = credit.groupby("Personal_Status")["Approval"].mean()
 
 xs = data.index 
 ys = data
@@ -228,9 +235,9 @@ plt.ylim(0, 1)
 plt.show()
 
 #plot for Guarantors and approval rate
-df["Guarantors"] = df["Guarantors"].astype(str)
+credit["Guarantors"] = credit["Guarantors"].astype(str)
 
-data = df.groupby("Guarantors")["Approval"].mean()
+data = credit.groupby("Guarantors")["Approval"].mean()
 
 xs = data.index 
 ys = data
@@ -256,9 +263,9 @@ plt.ylim(0, 1)
 plt.show()
 
 #plot for Residence_Length and approval rate
-df["Residence_Length"] = df["Residence_Length"].astype(str)
+credit["Residence_Length"] = credit["Residence_Length"].astype(str)
 
-data = df.groupby("Residence_Length")["Approval"].mean()
+data = credit.groupby("Residence_Length")["Approval"].mean()
 
 xs = data.index 
 ys = data
@@ -284,9 +291,9 @@ plt.ylim(0, 1)
 plt.show()
 
 #plot for Assets and approval rate
-df["Assets"] = df["Assets"].astype(str)
+credit["Assets"] = credit["Assets"].astype(str)
 
-data = df.groupby("Assets")["Approval"].mean()
+data = credit.groupby("Assets")["Approval"].mean()
 
 xs = data.index 
 ys = data
