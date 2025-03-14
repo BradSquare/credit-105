@@ -37,6 +37,15 @@ missing = credit.apply(lambda x: x.isna().sum()/1000)
 #check for outliers
 # print(credit[(np.abs(stats.zscore(credit)) < 3).all(axis=1)])
 
+#summary statistics
+print(f"Checking_Account - Mode: {credit.Checking_Account.mode()}")
+print(f"Duration - Mean: {credit.Duration.mode()}")
+print(f"Duration - Median: {credit.Duration.median()}")
+print(f"Duration - Variance: {credit.Duration.var()}")
+print(f"Payment_Status - Mode: {credit.Payment_Status.mode()}")
+print(f"Purpose - Mode: {credit.Purpose.mode()}")
+
+
 #get graph for distribution of checking account by type
 checking_account_distribution = credit["Checking_Account"].value_counts(normalize=True).sort_index(ascending=True)
 checking_account_distribution.plot(kind="bar", title="Checking_Account_Distribution")
