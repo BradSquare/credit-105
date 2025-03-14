@@ -24,24 +24,29 @@ plt.show()
 
 
 # bivariate analysis of savings account and approval
-df["Savings_Account"] = df["Savings_Account"].astype(str)
+credit["Savings_Account"] = credit["Savings_Account"].astype(str)
 
-data = df.groupby("Savings_Account")["Approval"].mean()
+data = credit.groupby("Savings_Account")["Approval"].mean()
 
 xs = data.index
 ys = data
 
-plt.figure(figsize=(8, 5))
-ax = plt.bar(xs, ys, color=plt.cm.viridis(0.5))
-plt.title("Approval Rate by Savings Account")
-plt.xlabel("Savings Account")
-plt.ylabel("Approval Rate")
+fig, ax = plt.subplots(figsize=(8, 5))
+bars = ax.bar(xs, ys, color=plt.cm.viridis(0.5))
 
-for p in ax.patches:
-    height = p.get_height()
-    ax.text(p.get_x() + p.get_width() / 2., height + 0.02, f'{height:.1%}', ha="center")
+ax.set_title("Approval Rate by Savings Account")
+ax.set_xlabel("Savings Account")
+ax.set_ylabel("Approval Rate")
 
-plt.ylim(0, 1)
+for bar in bars:
+    height = bar.get_height()
+    ax.annotate(f'{height:.1%}', 
+                (bar.get_x() + bar.get_width() / 2., height), 
+                textcoords="offset points", 
+                xytext=(0, 5),
+                ha="center")
+
+ax.set_ylim(0, 1)
 
 plt.show()
 
@@ -68,7 +73,7 @@ for bar in bars:
     ax.annotate(f'{height:.1%}', 
                 (bar.get_x() + bar.get_width() / 2., height), 
                 textcoords="offset points", 
-                xytext=(0, 5), 
+                xytext=(0, 5),
                 ha="center")
 
 ax.set_ylim(0, 1)
