@@ -1,8 +1,8 @@
 # summary statistics for amount
-print(f"Mean : {df.Amount.mean()}")
-print(f"Median : {df.Amount.median()}")
-print(f"Variance : {df.Amount.var()}")
-df.Amount.describe()
+print(f"Mean : {credit.Amount.mean()}")
+print(f"Median : {credit.Amount.median()}")
+print(f"Variance : {credit.Amount.var()}")
+credit.Amount.describe()
 
 ################################################################################################################
 
@@ -12,7 +12,7 @@ sns.set_style("whitegrid")
 
 # Histogram for Age
 plt.figure(figsize=(8, 5))
-sns.histplot(df["Amount"], bins=5, kde=True, color=plt.cm.viridis(0.5))
+sns.histplot(credit["Amount"], bins=5, kde=True, color=plt.cm.viridis(0.5))
 plt.title("Distribution of Amount")
 plt.xlabel("Amount")
 plt.ylabel("Count")
@@ -28,16 +28,16 @@ sns.set_style("whitegrid")
 bins = [0, 3000, 6000, 9000, 12000, np.inf]  # np.inf represents greater than 12000
 
 # Bin the 'Amount' values based on the custom bins
-df['Amount_Binned'] = pd.cut(df['Amount'], bins=bins, right=False)
+credit['Amount_Binned'] = pd.cut(credit['Amount'], bins=bins, right=False)
 
 # Define custom labels for the bins
 bin_labels = ['0 to 2999', '3000 to 5999', '6000 to 8999', '9000 to 11999', '12000 and above']
 
 # Assign custom labels to the binned data
-df['Amount_Binned'] = df['Amount_Binned'].cat.rename_categories(bin_labels)
+credit['Amount_Binned'] = credit['Amount_Binned'].cat.rename_categories(bin_labels)
 
 # Calculate the approval rate for each bin, specifying observed=False to avoid FutureWarning
-approval_rate_by_bin = df.groupby('Amount_Binned', observed=False)['Approval'].mean().reset_index()
+approval_rate_by_bin = credit.groupby('Amount_Binned', observed=False)['Approval'].mean().reset_index()
 
 # Plotting the barplot for approval rate across the binned amounts
 plt.figure(figsize=(8, 5))
@@ -57,13 +57,13 @@ plt.show()
 ################################################################################################################
 
 # summary statistics for savings account
-print(f"Mode : {df.Savings_Account.mode()}")
-df.Savings_Account.describe()
+print(f"Mode : {credit.Savings_Account.mode()}")
+credit.Savings_Account.describe()
 
 ################################################################################################################
 
 # plot for savings_account (normalized)
-data = df.groupby("Savings_Account").size()
+data = credit.groupby("Savings_Account").size()
 
 # Normalize the values by dividing by the total count
 ys = data / data.sum()
@@ -87,9 +87,9 @@ plt.show()
 ################################################################################################################
 
 # plot for savings_account and approval rate
-df["Savings_Account"] = df["Savings_Account"].astype(str)
+credit["Savings_Account"] = credit["Savings_Account"].astype(str)
 
-data = df.groupby("Savings_Account")["Approval"].mean()
+data = credit.groupby("Savings_Account")["Approval"].mean()
 
 xs = data.index
 ys = data
@@ -107,13 +107,13 @@ plt.show()
 ################################################################################################################
 
 # summary statistics for employment
-print(f"Mode : {df.Employment.mode()}")
-df.Employment.describe()
+print(f"Mode : {credit.Employment.mode()}")
+credit.Employment.describe()
 
 ################################################################################################################
 
 # plot for employment (normalized)
-data = df.groupby("Employment").size()
+data = credit.groupby("Employment").size()
 
 # Normalize the values by dividing by the total count
 ys = data / data.sum()
@@ -138,9 +138,9 @@ plt.show()
 ################################################################################################################
 
 #plot for employment and approval rate
-df["Employment"] = df["Employment"].astype(str)
+credit["Employment"] = credit["Employment"].astype(str)
 
-data = df.groupby("Employment")["Approval"].mean()
+data = credit.groupby("Employment")["Approval"].mean()
 
 xs = data.index
 ys = data
@@ -158,18 +158,18 @@ plt.show()
 ################################################################################################################
 
 #summary statistics for installment
-print(f"Mean : {df.Installment.mean()}")
-print(f"Median : {df.Installment.median()}")
-print(f"Mode : {df.Installment.mode()}")
-print(f"Variance : {df.Installment.var()}")
-df.Installment.describe()
+print(f"Mean : {credit.Installment.mean()}")
+print(f"Median : {credit.Installment.median()}")
+print(f"Mode : {credit.Installment.mode()}")
+print(f"Variance : {credit.Installment.var()}")
+credit.Installment.describe()
 
 ################################################################################################################
 
 # plot for installment (normalized)
-df["Installment"] = df["Installment"].astype(int)
+credit["Installment"] = credit["Installment"].astype(int)
 
-data = df.groupby("Installment").size()
+data = credit.groupby("Installment").size()
 
 # Normalize the values by dividing by the total count
 ys = data / data.sum()
@@ -200,7 +200,7 @@ plt.show()
 
 # plot for installment and approval rate
 # Group by Installment and calculate the approval rate (mean of Approval)
-approval_rate_by_installment = df.groupby("Installment")["Approval"].mean()
+approval_rate_by_installment = credit.groupby("Installment")["Approval"].mean()
 
 # Normalize the approval rates (optional, if you want to show them in proportion, but here the mean of approval is fine)
 approval_rate_by_installment = approval_rate_by_installment
@@ -227,7 +227,7 @@ plt.show()
 ################################################################################################################
 # plot for installment rate
 # Normalize the values by dividing by the total count
-data = df.groupby("Installment").size()
+data = credit.groupby("Installment").size()
 ys = data / data.sum()
 
 # x-values are the Installment rates
@@ -256,9 +256,9 @@ plt.show()
 ################################################################################################################
 
 # plot for installment and approval rate
-df["Installment"] = df["Installment"].astype(str)
+credit["Installment"] = credit["Installment"].astype(str)
 
-data = df.groupby("Installment")["Approval"].mean()
+data = credit.groupby("Installment")["Approval"].mean()
 
 xs = data.index
 ys = data
