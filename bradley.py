@@ -2,7 +2,11 @@
 print(f"Mean : {credit.Amount.mean()}")
 print(f"Median : {credit.Amount.median()}")
 print(f"Variance : {credit.Amount.var()}")
-credit.Amount.describe()
+
+# Summary of Num_Credits
+print(f"Num_Credits - Mean: {credit.Num_Credits.mean()}")
+print(f"Num_Credits - Median: {credit.Num_Credits.median()}")
+print(f"Num_Credits - Variance: {credit.Num_Credits.var()}")
 
 ################################################################################################################
 
@@ -58,7 +62,6 @@ plt.show()
 
 # summary statistics for savings account
 print(f"Mode : {credit.Savings_Account.mode()}")
-credit.Savings_Account.describe()
 
 ################################################################################################################
 
